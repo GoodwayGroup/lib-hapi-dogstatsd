@@ -2,92 +2,179 @@ const assert = require('assert');
 const plugin = require('../lib');
 const Hapi = require('hapi');
 
-const mockStatsdClient = {
-    incStat: '',
-    timingStat: '',
-    timingDate: '',
-
-    increment(statName) {
-        this.incStat = statName;
-    },
-
-    timing(statName, date) {
-        this.timingStat = statName;
-        this.timingDate = date;
-    }
-};
-
 describe('lib-hapi-dogstatsd plugin tests', () => {
-    let server;
-    beforeEach(async () => {
-        server = new Hapi.Server({
-            host: 'localhost',
-            port: 8085
-        });
+    describe('general use case', () => {
+        let server;
+        let mockStatsdClient;
 
+        beforeEach(async () => {
+            mockStatsdClient = {
+                incr: jasmine.createSpy('incr'),
+                gauge: jasmine.createSpy('gauge'),
+                timer: jasmine.createSpy('timer')
+            };
 
-        const get = function (request, reply) {
-            return 'Success!';
-        };
+            server = new Hapi.Server({
+                host: 'localhost',
+                port: 8085
+            });
 
-        const err = function (request, reply) {
-            return new Error();
-        };
+            const get = () => 'Success!';
 
-        server.route({ method: ['GET', 'OPTIONS'], path: '/', handler: get, config: { cors: true } });
-        server.route({ method: 'GET', path: '/err', handler: err, config: { cors: true } });
-        server.route({ method: 'GET', path: '/test/{param}', handler: get, config: { cors: true } });
+            const err = () => new Error();
 
-        try {
+            const withTags = (request) => {
+                request.plugins.dogstatsd = {
+                    tags: ['tag1:true', 'tag2:false']
+                };
+                return 'Success!';
+            };
+
+            server.route({ method: ['GET', 'OPTIONS'], path: '/', handler: get, config: { cors: true } });
+            server.route({ method: 'GET', path: '/err', handler: err, config: { cors: true } });
+            server.route({ method: 'GET', path: '/test/withtags', handler: withTags });
+            server.route({ method: 'GET', path: '/test/{param}', handler: get, config: { cors: true } });
+            server.route({ method: 'GET', path: '/favicon.ico', handler: get });
+            server.route({ method: 'GET', path: '/health-check', handler: get });
+
             return await server.register({
                 plugin,
                 options: { dogstatsdClient: mockStatsdClient }
             });
-        } catch (error) {
-            return error;
-        }
-    });
-
-    it('should expose statsd client to the hapi server', () => {
-        assert.equal(server.statsd, mockStatsdClient);
-    });
-
-    it('should report stats with no path in stat name', async () => {
-        await server.inject('/');
-        assert(mockStatsdClient.incStat == 'GET.200');
-        assert(mockStatsdClient.timingStat == 'GET.200');
-        assert(mockStatsdClient.timingDate instanceof Date);
-    });
-
-    it('should report stats with path in stat name', async () => {
-        await server.inject('/test/123');
-        assert(mockStatsdClient.incStat == 'test_{param}.GET.200');
-        assert(mockStatsdClient.timingStat == 'test_{param}.GET.200');
-        assert(mockStatsdClient.timingDate instanceof Date);
-    });
-
-    it('should report stats with generic not found path', async () => {
-        await server.inject('/fnord');
-        assert(mockStatsdClient.incStat == '{notFound*}.GET.404');
-        assert(mockStatsdClient.timingStat == '{notFound*}.GET.404');
-        assert(mockStatsdClient.timingDate instanceof Date);
-    });
-
-    it('should report stats with generic CORS path', async () => {
-        await server.inject({
-            method: 'OPTIONS',
-            headers: {
-                Origin: 'http://test.domain.com'
-            },
-            url: '/'
         });
-        assert(mockStatsdClient.incStat == '{cors*}.OPTIONS.200');
-        assert(mockStatsdClient.timingStat == '{cors*}.OPTIONS.200');
-        assert(mockStatsdClient.timingDate instanceof Date);
+
+        it('should expose dogstatsd client to the hapi server', () => {
+            assert.equal(server.dogstatsd, mockStatsdClient);
+        });
+
+        it('should report stats for root path', async () => {
+            const tags = ['path:/', 'status_code:200', 'http_method:GET'];
+            await server.inject('/');
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should report stats with path name set explicitly', async () => {
+            const tags = ['path:/test/path', 'status_code:200', 'http_method:GET'];
+            await server.inject('/test/path');
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should report stats with path name set explicitly', async () => {
+            const tags = ['path:/test/withtags', 'status_code:200', 'http_method:GET', 'tag1:true', 'tag2:false'];
+            await server.inject('/test/withtags');
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should report proper HTTP status', async () => {
+            const tags = ['path:/notFound', 'status_code:404', 'http_method:GET'];
+            await server.inject('/notFound');
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should report report the proper HTTP method', async () => {
+            const tags = ['path:/', 'status_code:200', 'http_method:OPTIONS'];
+            await server.inject({
+                method: 'OPTIONS',
+                headers: {
+                    Origin: 'http://test.domain.com'
+                },
+                url: '/'
+            });
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should not change the status code of a response', async () => {
+            const tags = ['path:/err', 'status_code:500', 'http_method:GET'];
+            const res = await server.inject('/err');
+            expect(res.statusCode).toBe(500);
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should not change the status code of a response', async () => {
+            const tags = ['path:/err', 'status_code:500', 'http_method:GET'];
+            const res = await server.inject('/err');
+            expect(res.statusCode).toBe(500);
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should not report stats for /health-check', async () => {
+            const res = await server.inject('/health-check');
+            expect(res.statusCode).toBe(200);
+            expect(mockStatsdClient.incr).not.toHaveBeenCalled();
+            expect(mockStatsdClient.gauge).not.toHaveBeenCalled();
+            expect(mockStatsdClient.timer).not.toHaveBeenCalled();
+        });
+
+        it('should not report stats for /favicon.ico', async () => {
+            const res = await server.inject('/favicon.ico');
+            expect(res.statusCode).toBe(200);
+            expect(mockStatsdClient.incr).not.toHaveBeenCalled();
+            expect(mockStatsdClient.gauge).not.toHaveBeenCalled();
+            expect(mockStatsdClient.timer).not.toHaveBeenCalled();
+        });
     });
 
-    it('should not change the status code of a response', async () => {
-        const res = await server.inject('/err');
-        assert(res.statusCode === 500);
+    describe('validate client creation', () => {
+        let server;
+        let mockStatsdClient;
+
+        beforeEach(async () => {
+            mockStatsdClient = {
+                incr: jasmine.createSpy('incr'),
+                gauge: jasmine.createSpy('gauge'),
+                timer: jasmine.createSpy('timer')
+            };
+
+            server = new Hapi.Server({
+                host: 'localhost',
+                port: 8085
+            });
+
+            return await server.register({ plugin });
+        });
+
+        it('should expose dogstatsd client to the hapi server', () => {
+            assert.notEqual(server.dogstatsd, mockStatsdClient);
+        });
+    });
+
+    describe('options', () => {
+        let server;
+        beforeEach(async () => {
+            server = new Hapi.Server({
+                host: 'localhost',
+                port: 8085
+            });
+
+            return await server.register({
+                plugin,
+                options: {
+                    tags: ['test:tag'],
+                    prefix: 'booyah'
+                }
+            });
+        });
+
+        it('should overwrite the default global tags', () => {
+            expect(server.dogstatsd.tags).toEqual(['test:tag']);
+        });
+
+        it('should overwrite the default prefix', () => {
+            expect(server.dogstatsd.prefix).toEqual('booyah');
+        });
     });
 });
