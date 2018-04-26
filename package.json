@@ -1,12 +1,13 @@
 {
   "name": "lib-hapi-dogstatsd",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Hapi plugin for publishing route stats to DataDog",
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test nyc jasmine",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "version": "auto-changelog -p -l false --template keepachangelog && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "check-coverage": false
   },
   "devDependencies": {
+    "auto-changelog": "^1.1.0",
     "cross-env": "^5.0.5",
     "eslint": "^4.8.0",
     "eslint-config-goodway": "^1.3.0",
