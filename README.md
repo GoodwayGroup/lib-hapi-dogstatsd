@@ -35,4 +35,4 @@ if (process.env.DOGSTATSD_HOST && process.env.NODE_ENV !== 'test') {
 - `tags`: An array of tags that will be applied to all metrics that are sent
     - default: ```[`env:${process.env.NODE_ENV || 'development'}`]```
 - `excludedPaths`: An array of URL paths to ignore sending metrics for.
-    - default: `['/favicon.ico', '/health-check']`)
+    - default: `['/favicon.ico', '/health-check']`
