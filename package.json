@@ -1,5 +1,5 @@
 {
-  "name": "lib-hapi-dogstatsd",
+  "name": "@goodwaygroup/lib-hapi-dogstatsd",
   "version": "0.1.0",
   "description": "Hapi plugin for publishing route stats to DataDog",
   "main": "index.js",
