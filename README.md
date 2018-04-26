@@ -4,6 +4,8 @@
 
 Inspired by the great work done by [@mac-](https://github.com/mac-) in [hapi-statsd](https://github.com/mac-/hapi-statsd) and uses the [dog-statsy](https://github.com/segmentio/dog-statsy) module.
 
+## Usage
+
 This plugin will send metrics regarding route performance on every request to the Hapi server.
 
 For the `prefix`, please the name of the service that you are integrating with (neato-service, cool-api, etc)
