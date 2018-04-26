@@ -18,7 +18,7 @@ const HapiDogstatsd = require('@goodwaygroup/lib-hapi-dogstatsd')
 // Dogstatsd
 if (process.env.DOGSTATSD_HOST && process.env.NODE_ENV !== 'test') {
     await server.register({
-        plugin: HapiDogstatsd
+        plugin: HapiDogstatsd,
         options: {
             host: process.env.DOGSTATSD_HOST,
             port: process.env.DOGSTATSD_PORT || 8125,
