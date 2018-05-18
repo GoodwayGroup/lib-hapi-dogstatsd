@@ -1,14 +1,18 @@
 # lib-hapi-dogstatsd
 
-> Please do not run this plugin within tests in your application
+[![CircleCI](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd.svg?style=svg)](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd)
 
-Inspired by the great work done by [@mac-](https://github.com/mac-) in [hapi-statsd](https://github.com/mac-/hapi-statsd) and uses the [dog-statsy](https://github.com/segmentio/dog-statsy) module.
+> Please do not run this plugin within tests in your application
 
 ## Usage
 
 This plugin will send metrics regarding route performance on every request to the Hapi server.
 
 For the `prefix`, please the name of the service that you are integrating with (neato-service, cool-api, etc)
+
+```
+$ yarn add @goodwaygroup/lib-hapi-dogstatsd
+```
 
 In your `index.js` for the Hapi server, register the plugin:
 
@@ -29,7 +33,7 @@ if (process.env.DOGSTATSD_HOST && process.env.NODE_ENV !== 'test') {
 }
 ```
 
-### Options
+## Configuration Options
 
 > When passing a configuration option, it will overwrite the defaults.
 
@@ -76,3 +80,62 @@ Example:
     'http_method:POST'
 ]
 ```
+
+## Running Tests
+
+To run tests, just run the following:
+
+```
+yarn test
+```
+
+All commits are tested on [CircleCI](https://circleci.com/gh/GoodwayGroup/workflows/lib-hapi-dogstatsd)
+
+## Linting
+
+To run `eslint`:
+
+```
+yarn lint
+```
+
+To auto-resolve:
+
+```
+yarn lint:fix
+```
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use milestones and `npm` version to bump versions. We also employ [auto-changelog](https://www.npmjs.com/package/auto-changelog) to manage the [CHANGELOG.md](CHANGELOG.md). For the versions available, see the [tags on this repository](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/tags).
+
+To initiate a version change:
+
+```
+yarn version
+```
+
+## Authors
+
+* **Derek Smith** - *Initial work* - [@clok](https://github.com/clok)
+
+See also the list of [contributors](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* Inspired by the great work done by [@mac-](https://github.com/mac-) in [hapi-statsd](https://github.com/mac-/hapi-statsd)
+* Uses the [dog-statsy](https://github.com/segmentio/dog-statsy) module.
+
+## Sponsors
+
+[![goodwaygroup][goodwaygroup]](https://goodwaygroup.com)
+
+[goodwaygroup]: https://s3.amazonaws.com/gw-crs-assets/goodwaygroup/logos/ggLogo_sm.png "Goodway Group"
