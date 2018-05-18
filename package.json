@@ -19,6 +19,18 @@
     "url": "https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues"
   },
   "homepage": "https://github.com/GoodwayGroup/lib-hapi-dogstatsd#readme",
+  "keywords": [
+		"hapi",
+		"metrics",
+		"plugin",
+		"request",
+		"stats",
+    "datadog",
+    "dogstatsd",
+    "instrumentation",
+    "monitoring",
+    "statsd"
+	],
   "pre-push": [
     "lint",
     "test"
