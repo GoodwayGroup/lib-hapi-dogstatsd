@@ -48,7 +48,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
 
         it('should report stats for root path', async () => {
-            const tags = ['url_path:/', 'route_path:/', 'status_code:200', 'http_method:GET'];
+            const tags = ['dns:localhost_8085', 'url_path:/', 'route_path:/', 'status_code:200', 'http_method:GET'];
             await server.inject('/');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
             expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
@@ -56,7 +56,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
 
         it('should report stats with path name set explicitly', async () => {
-            const tags = ['url_path:/test/path', 'route_path:/test/{param}', 'status_code:200', 'http_method:GET'];
+            const tags = ['dns:localhost_8085', 'url_path:/test/path', 'route_path:/test/{param}', 'status_code:200', 'http_method:GET'];
             await server.inject('/test/path');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
             expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
@@ -64,7 +64,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
 
         it('should report stats with merging tags from route', async () => {
-            const tags = ['url_path:/test/withtags', 'route_path:/test/withtags', 'status_code:200', 'http_method:GET', 'tag1:true', 'tag2:false'];
+            const tags = ['dns:localhost_8085', 'url_path:/test/withtags', 'route_path:/test/withtags', 'status_code:200', 'http_method:GET', 'tag1:true', 'tag2:false'];
             await server.inject('/test/withtags');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
             expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
@@ -72,7 +72,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
 
         it('should report proper HTTP status', async () => {
-            const tags = ['url_path:/notFound', 'route_path:/{notFound*}', 'status_code:404', 'http_method:GET'];
+            const tags = ['dns:localhost_8085', 'url_path:/notFound', 'route_path:/{notFound*}', 'status_code:404', 'http_method:GET'];
             await server.inject('/notFound');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
             expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
@@ -80,7 +80,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
 
         it('should report report the proper HTTP method', async () => {
-            const tags = ['url_path:/', 'route_path:/{cors*}', 'status_code:200', 'http_method:OPTIONS'];
+            const tags = ['dns:localhost_8085', 'url_path:/', 'route_path:/{cors*}', 'status_code:200', 'http_method:OPTIONS'];
             await server.inject({
                 method: 'OPTIONS',
                 headers: {
@@ -94,7 +94,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
 
         it('should not change the status code of a response', async () => {
-            const tags = ['url_path:/throwError', 'route_path:/throwError', 'status_code:500', 'http_method:GET'];
+            const tags = ['dns:localhost_8085', 'url_path:/throwError', 'route_path:/throwError', 'status_code:500', 'http_method:GET'];
             const res = await server.inject('/throwError');
             expect(res.statusCode).toBe(500);
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
