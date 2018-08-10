@@ -62,6 +62,7 @@ These tags are set on every request:
 ```js
 const tags = [
     `env:${process.env.NODE_ENV || 'development'}`,
+    `dns:${request.headers.host}`,
     `url_path:${request.url.pathname}`,
     `route_path:${request.route.path}`,
     `status_code:${statusCode}`,
@@ -74,6 +75,7 @@ Example:
 ```
 [
     'end:production',
+    'dns:github.com',
     'url_path:/api/v1/user/34/edit',
     'route_path:/api/v1/user/{id}/edit',
     'status_code:200',
