@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@hapi/hoek@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-7.2.1.tgz#14c4a1ae8795472c2d5e27ee61fd7bed1b8de226"
+  integrity sha512-X6YzLoU+VvZwUNe0VFJV/r4IiFHf61/6VItdnKjlay+YS/5qoczO3u/7wyTj2NtaOZHlFJBndNkfZ2Ag2XxCsg==
+
 accept@3.x.x:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/accept/-/accept-3.0.2.tgz#83e41cec7e1149f3fd474880423873db6c6cc9ac"
@@ -1160,10 +1165,6 @@ heavy@6.x.x:
     boom "7.x.x"
     hoek "5.x.x"
     joi "13.x.x"
-
-hoek@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/hoek/-/hoek-5.0.3.tgz#b71d40d943d0a95da01956b547f83c4a5b4a34ac"
 
 hoek@5.x.x:
   version "5.0.0"
