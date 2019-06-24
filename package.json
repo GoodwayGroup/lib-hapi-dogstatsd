@@ -73,6 +73,6 @@
   },
   "dependencies": {
     "@hapi/hoek": "^7.2.1",
-    "dog-statsy": "^1.2.0"
+    "dog-statsy": "^1.2.1"
   }
 }
