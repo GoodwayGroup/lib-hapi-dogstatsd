@@ -1,6 +1,6 @@
 const assert = require('assert');
 const plugin = require('../lib');
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 
 describe('lib-hapi-dogstatsd plugin tests', () => {
     describe('general use case', () => {
