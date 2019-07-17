@@ -143,6 +143,44 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
         });
     });
 
+    describe('excludedTags', () => {
+        let server;
+        let mockStatsdClient;
+
+        beforeEach(async () => {
+            mockStatsdClient = {
+                incr: jasmine.createSpy('incr'),
+                gauge: jasmine.createSpy('gauge'),
+                timer: jasmine.createSpy('timer')
+            };
+
+            server = new Hapi.Server({
+                host: 'localhost',
+                port: 8085
+            });
+
+            const get = () => 'Success!';
+
+            server.route({ method: 'GET', path: '/test', handler: get });
+
+            return await server.register({
+                plugin,
+                options: {
+                    dogstatsdClient: mockStatsdClient,
+                    excludedTags: ['route_path', 'dns']
+                }
+            });
+        });
+
+        it('should report stats excluding the DNS and route path tags', async () => {
+            const tags = ['url_path:/test', 'status_code:200', 'http_method:GET'];
+            await server.inject('/test');
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+    });
+
     describe('options', () => {
         let server;
         beforeEach(async () => {
