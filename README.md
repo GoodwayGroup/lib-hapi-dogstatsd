@@ -46,6 +46,8 @@ if (process.env.DOGSTATSD_HOST && process.env.NODE_ENV !== 'test') {
     - default: ```[`env:${process.env.NODE_ENV || 'development'}`]```
 - `excludedPaths`: An array of URL paths to ignore sending metrics for.
     - default: `['/favicon.ico', '/health-check']`
+- `excludedTags`: An array of tag keys that will be excluded from the default list of tags added to each metric. The default list of tags is: `dns, url_path, route_path, status_code, http_method`
+    - default: `[]`
 
 ### Route Based Tags
 
