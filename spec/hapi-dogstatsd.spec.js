@@ -11,7 +11,8 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
             mockStatsdClient = {
                 incr: jasmine.createSpy('incr'),
                 gauge: jasmine.createSpy('gauge'),
-                timer: jasmine.createSpy('timer')
+                timer: jasmine.createSpy('timer'),
+                booyah: jasmine.createSpy('booyah')
             };
 
             server = new Hapi.Server({
@@ -30,9 +31,22 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
                 return 'Success!';
             };
 
+            const withMetrics = (request) => {
+                request.plugins.dogstatsd = {
+                    metrics: [{
+                        type: 'booyah',
+                        name: 'rick.morty',
+                        value: 1337,
+                        tags: ['tag:special']
+                    }]
+                };
+                return 'Success!';
+            };
+
             server.route({ method: ['GET', 'OPTIONS'], path: '/', handler: get, config: { cors: true } });
             server.route({ method: 'GET', path: '/throwError', handler: err, config: { cors: true } });
             server.route({ method: 'GET', path: '/test/withtags', handler: withTags });
+            server.route({ method: 'GET', path: '/test/withmetrics', handler: withMetrics });
             server.route({ method: 'GET', path: '/test/{param}', handler: get, config: { cors: true } });
             server.route({ method: 'GET', path: '/favicon.ico', handler: get });
             server.route({ method: 'GET', path: '/health-check', handler: get });
@@ -69,6 +83,15 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
             expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
             expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+        });
+
+        it('should report stats with merging metrics from route', async () => {
+            const tags = ['dns:localhost_8085', 'url_path:/test/withmetrics', 'route_path:/test/withmetrics', 'status_code:200', 'http_method:GET'];
+            await server.inject('/test/withmetrics');
+            expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.booyah).toHaveBeenCalledWith('rick.morty', jasmine.any(Number), [...tags, 'tag:special']);
         });
 
         it('should report proper HTTP status', async () => {

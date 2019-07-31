@@ -57,6 +57,26 @@ To add custom tags specific to a route, use the [response.plugin](https://github
 response.plugins['dogstatsd'] = { tags: ['custom:tag', 'key:value'] }
 ```
 
+### Route Based Metrics
+
+To add custom metrics specific to a route, use the [response.plugin](https://github.com/hapijs/hapi/blob/master/API.md#response.plugins) state block to pass `metrics` to the plugin. These metrics will be merged with the default metrics that are generated.
+
+The `metrics` will need to have the following structure.
+
+```js
+response.plugins.dogstatsd.metrics = [{
+    type: 'gauge',
+    name: 'cache.orphans',
+    value: 123,
+    tags: [`cache_db:${cache}`]
+}, {
+    type: 'incr',
+    name: 'cache.hit',
+    value: null,
+    tags: [`cache_db:${cache}`]
+}]
+```
+
 ### Default Tags
 
 These tags are set on every request:
