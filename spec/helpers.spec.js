@@ -1,4 +1,4 @@
-const plugin = require('../lib');;
+const plugin = require('../lib');
 
 describe('[helpers]', () => {
     describe('injectMetricTags', () => {
