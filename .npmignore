@@ -1,0 +1,5 @@
+*
+!lib/**
+!index.js
+!CHANGELOG.md
+!yarn.lock

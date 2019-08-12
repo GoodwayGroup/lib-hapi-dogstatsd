@@ -127,10 +127,10 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-6.2.4.tgz#4b95fbaccbfba90185690890bdf1a2fbbda10595"
   integrity sha512-HOJ20Kc93DkDVvjwHyHawPwPkX44sIrbXazAUDiUXaY2R9JwQGo2PhFfnQtdrsIe4igjG2fPgMra7NYw7qhy0A==
 
-"@hapi/hoek@^7.2.1":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-7.2.1.tgz#14c4a1ae8795472c2d5e27ee61fd7bed1b8de226"
-  integrity sha512-X6YzLoU+VvZwUNe0VFJV/r4IiFHf61/6VItdnKjlay+YS/5qoczO3u/7wyTj2NtaOZHlFJBndNkfZ2Ag2XxCsg==
+"@hapi/hoek@^8.2.0":
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.2.0.tgz#079a133be240ff866ad8532eaa46a691bdd91117"
+  integrity sha512-pR2ZgiP562aiaQvQ98WgfqfTrm+xG+7hwHRPEiYZ+7U1OHAAb4OVZJIalCP03bMqYSioQzflzVTVrybSwDBn1Q==
 
 "@hapi/iron@5.x.x":
   version "5.1.0"
@@ -1717,6 +1717,11 @@ lodash.cond@^4.3.0:
 lodash@^4.0.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@^4.17.15:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 lodash@^4.17.4, lodash@^4.3.0, lodash@~4.17.2:
   version "4.17.4"
