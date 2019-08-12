@@ -9,10 +9,10 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
 
         beforeEach(async () => {
             mockStatsdClient = {
-                incr: jasmine.createSpy('incr'),
-                gauge: jasmine.createSpy('gauge'),
-                timer: jasmine.createSpy('timer'),
-                booyah: jasmine.createSpy('booyah')
+                incr: jest.fn(),
+                gauge: jest.fn(),
+                timer: jest.fn(),
+                booyah: jest.fn()
             };
 
             server = new Hapi.Server({
@@ -65,41 +65,41 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
             const tags = ['dns:localhost_8085', 'url_path:/', 'route_path:/', 'status_code:200', 'http_method:GET'];
             await server.inject('/');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
 
         it('should report stats with path name set explicitly', async () => {
             const tags = ['dns:localhost_8085', 'url_path:/test/path', 'route_path:/test/{param}', 'status_code:200', 'http_method:GET'];
             await server.inject('/test/path');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
 
         it('should report stats with merging tags from route', async () => {
             const tags = ['dns:localhost_8085', 'url_path:/test/withtags', 'route_path:/test/withtags', 'status_code:200', 'http_method:GET', 'tag1:true', 'tag2:false'];
             await server.inject('/test/withtags');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
 
         it('should report stats with merging metrics from route', async () => {
             const tags = ['dns:localhost_8085', 'url_path:/test/withmetrics', 'route_path:/test/withmetrics', 'status_code:200', 'http_method:GET'];
             await server.inject('/test/withmetrics');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
-            expect(mockStatsdClient.booyah).toHaveBeenCalledWith('rick.morty', jasmine.any(Number), [...tags, 'tag:special']);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
+            expect(mockStatsdClient.booyah).toHaveBeenCalledWith('rick.morty', expect.any(Number), [...tags, 'tag:special']);
         });
 
         it('should report proper HTTP status', async () => {
             const tags = ['dns:localhost_8085', 'url_path:/notFound', 'route_path:/{notFound*}', 'status_code:404', 'http_method:GET'];
             await server.inject('/notFound');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
 
         it('should report report the proper HTTP method', async () => {
@@ -112,8 +112,8 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
                 url: '/'
             });
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
 
         it('should not change the status code of a response', async () => {
@@ -121,8 +121,8 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
             const res = await server.inject('/throwError');
             expect(res.statusCode).toBe(500);
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
 
         it('should not report stats for /health-check', async () => {
@@ -148,9 +148,9 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
 
         beforeEach(async () => {
             mockStatsdClient = {
-                incr: jasmine.createSpy('incr'),
-                gauge: jasmine.createSpy('gauge'),
-                timer: jasmine.createSpy('timer')
+                incr: jest.fn(),
+                gauge: jest.fn(),
+                timer: jest.fn()
             };
 
             server = new Hapi.Server({
@@ -172,9 +172,9 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
 
         beforeEach(async () => {
             mockStatsdClient = {
-                incr: jasmine.createSpy('incr'),
-                gauge: jasmine.createSpy('gauge'),
-                timer: jasmine.createSpy('timer')
+                incr: jest.fn(),
+                gauge: jest.fn(),
+                timer: jest.fn()
             };
 
             server = new Hapi.Server({
@@ -199,8 +199,8 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
             const tags = ['url_path:/test', 'status_code:200', 'http_method:GET'];
             await server.inject('/test');
             expect(mockStatsdClient.incr).toHaveBeenCalledWith('route.hits', null, tags);
-            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', jasmine.any(Number), tags);
-            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', jasmine.any(Number), tags);
+            expect(mockStatsdClient.gauge).toHaveBeenCalledWith('route.response_time', expect.any(Number), tags);
+            expect(mockStatsdClient.timer).toHaveBeenCalledWith('route', expect.any(Number), tags);
         });
     });
 
