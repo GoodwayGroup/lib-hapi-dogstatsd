@@ -1431,7 +1431,7 @@ doctrine@^2.0.0:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
-dog-statsy@^1.2.1:
+dog-statsy@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/dog-statsy/-/dog-statsy-1.2.1.tgz#0eda2fa1634d13eb786d43448061be2a52064165"
   integrity sha512-wOxkLiGQG1mzm7s0eGm5hN40XYvxeHs9iwePl9HBauaTWh0aXfQRvOi8X5aflrlOL7rhRI5+e6zXq9yxb8kqNg==

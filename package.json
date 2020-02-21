@@ -1,6 +1,6 @@
 {
   "name": "@goodwaygroup/lib-hapi-dogstatsd",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Hapi plugin for publishing route stats to DataDog",
   "main": "index.js",
   "scripts": {
@@ -109,7 +109,7 @@
   "dependencies": {
     "@hapi/hoek": "^8.2.0",
     "debug": "^4.1.1",
-    "dog-statsy": "^1.2.1",
+    "dog-statsy": "1.2.1",
     "lodash": "^4.17.15"
   }
 }
