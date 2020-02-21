@@ -40,9 +40,25 @@ describe('[helpers]', () => {
                 ...injectedTags
             ]));
         });
+
+        it('should deduplicate the tags list', () => {
+            // inject tags once
+            plugin.injectMetricTags({
+                request: this.requestMock,
+                tags: injectedTags
+            });
+            // inject tags again for some reason
+            plugin.injectMetricTags({
+                request: this.requestMock,
+                tags: injectedTags
+            });
+
+            expect(this.requestMock.plugins.dogstatsd).not.toBeUndefined();
+            expect(this.requestMock.plugins.dogstatsd.tags).toEqual(injectedTags);
+        });
     });
 
-    describe('pushMetrics', () => {
+    describe('injectMetrics', () => {
         const injectMetrics = [{
             type: 'gauge',
             name: 'cache.orphans',
@@ -90,6 +106,23 @@ describe('[helpers]', () => {
                 ...ogMetrics,
                 ...injectMetrics
             ]));
+        });
+
+        it('should deduplicate the tags list', () => {
+            // inject metrics once
+            plugin.injectMetrics({
+                request: this.requestMock,
+                metrics: injectMetrics
+            });
+
+            // inject metrics again for some reason
+            plugin.injectMetrics({
+                request: this.requestMock,
+                metrics: injectMetrics
+            });
+
+            expect(this.requestMock.plugins.dogstatsd).not.toBeUndefined();
+            expect(this.requestMock.plugins.dogstatsd.metrics).toEqual(injectMetrics);
         });
     });
 });
