@@ -1,6 +1,6 @@
 # lib-hapi-dogstatsd
 
-[![CircleCI](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd.svg?style=svg)](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd)
+[![Coverage Status](https://coveralls.io/repos/github/GoodwayGroup/lib-hapi-dogstatsd/badge.svg?branch=master)](https://coveralls.io/github/GoodwayGroup/lib-hapi-dogstatsd?branch=master) [![CircleCI](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd.svg?style=svg)](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd)
 
 > Please do not run this plugin within tests in your application
 
