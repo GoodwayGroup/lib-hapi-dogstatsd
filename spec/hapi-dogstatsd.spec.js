@@ -1,6 +1,6 @@
 const assert = require('assert');
-const plugin = require('../lib');
 const Hapi = require('@hapi/hapi');
+const plugin = require('../lib');
 
 describe('lib-hapi-dogstatsd plugin tests', () => {
     describe('general use case', () => {
@@ -43,15 +43,21 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
                 return 'Success!';
             };
 
-            server.route({ method: ['GET', 'OPTIONS'], path: '/', handler: get, config: { cors: true } });
-            server.route({ method: 'GET', path: '/throwError', handler: err, config: { cors: true } });
+            server.route({
+                method: ['GET', 'OPTIONS'], path: '/', handler: get, config: { cors: true }
+            });
+            server.route({
+                method: 'GET', path: '/throwError', handler: err, config: { cors: true }
+            });
             server.route({ method: 'GET', path: '/test/withtags', handler: withTags });
             server.route({ method: 'GET', path: '/test/withmetrics', handler: withMetrics });
-            server.route({ method: 'GET', path: '/test/{param}', handler: get, config: { cors: true } });
+            server.route({
+                method: 'GET', path: '/test/{param}', handler: get, config: { cors: true }
+            });
             server.route({ method: 'GET', path: '/favicon.ico', handler: get });
             server.route({ method: 'GET', path: '/health-check', handler: get });
 
-            return await server.register({
+            return server.register({
                 plugin,
                 options: { dogstatsdClient: mockStatsdClient }
             });
@@ -158,7 +164,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
                 port: 8085
             });
 
-            return await server.register({ plugin });
+            return server.register({ plugin });
         });
 
         it('should expose dogstatsd client to the hapi server', () => {
@@ -186,7 +192,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
 
             server.route({ method: 'GET', path: '/test', handler: get });
 
-            return await server.register({
+            return server.register({
                 plugin,
                 options: {
                     dogstatsdClient: mockStatsdClient,
@@ -212,7 +218,7 @@ describe('lib-hapi-dogstatsd plugin tests', () => {
                 port: 8085
             });
 
-            return await server.register({
+            return server.register({
                 plugin,
                 options: {
                     tags: ['test:tag'],
