@@ -11,7 +11,7 @@ This plugin will send metrics regarding route performance on every request to th
 For the `prefix`, please the name of the service that you are integrating with (neato-service, cool-api, etc)
 
 ```
-$ yarn add @goodwaygroup/lib-hapi-dogstatsd
+$ npm install -S @goodwaygroup/lib-hapi-dogstatsd
 ```
 
 In your `index.js` for the Hapi server, register the plugin:
@@ -110,7 +110,7 @@ Example:
 To run tests, just run the following:
 
 ```
-yarn test
+npm test
 ```
 
 All commits are tested on [CircleCI](https://circleci.com/gh/GoodwayGroup/workflows/lib-hapi-dogstatsd)
@@ -120,13 +120,13 @@ All commits are tested on [CircleCI](https://circleci.com/gh/GoodwayGroup/workfl
 To run `eslint`:
 
 ```
-yarn lint
+npm run lint
 ```
 
 To auto-resolve:
 
 ```
-yarn lint:fix
+npm run lint:fix
 ```
 
 ## Contributing
@@ -140,7 +140,7 @@ We use milestones and `npm` version to bump versions. We also employ [auto-chang
 To initiate a version change:
 
 ```
-yarn version
+npm version major|minor|patch
 ```
 
 ## Authors
