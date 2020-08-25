@@ -1,6 +1,9 @@
 # lib-hapi-dogstatsd
 
-[![Coverage Status](https://coveralls.io/repos/github/GoodwayGroup/lib-hapi-dogstatsd/badge.svg?branch=master)](https://coveralls.io/github/GoodwayGroup/lib-hapi-dogstatsd?branch=master) [![CircleCI](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd.svg?style=svg)](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd)
+[![CircleCI](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd.svg?style=svg)](https://circleci.com/gh/GoodwayGroup/lib-hapi-dogstatsd)
+[![Coverage Status](https://coveralls.io/repos/github/GoodwayGroup/lib-hapi-dogstatsd/badge.svg?branch=master)](https://coveralls.io/github/GoodwayGroup/lib-hapi-dogstatsd?branch=master)
+[![npm downloads](https://img.shields.io/npm/dm/@goodwaygroup/lib-hapi-dogstatsd.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@goodwaygroup/lib-hapi-dogstatsd)
+[![install size](https://packagephobia.com/badge?p=@goodwaygroup/lib-hapi-dogstatsd)](https://packagephobia.com/result?p=@goodwaygroup/lib-hapi-dogstatsd)
 
 > Please do not run this plugin within tests in your application
 
