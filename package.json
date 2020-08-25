@@ -34,10 +34,6 @@
     "monitoring",
     "statsd"
   ],
-  "pre-push": [
-    "lint",
-    "test"
-  ],
   "nyc": {
     "include": [
       "lib/*.js"
@@ -103,8 +99,8 @@
     "eslint": "7.7.0",
     "eslint-config-goodway": "2.1.1",
     "eslint-plugin-import": "2.22.0",
-    "jest": "26.4.2",
-    "pre-push": "0.1.1"
+    "husky": "4.2.5",
+    "jest": "26.4.2"
   },
   "dependencies": {
     "@hapi/hoek": "9.0.4",
