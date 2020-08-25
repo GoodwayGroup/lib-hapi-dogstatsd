@@ -1,9 +1,13 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v1.1.1"></a>
+## [v1.1.1] - 2020-08-25
 ### Chore
 - update README
 - remove dependabot
+- **changelog:** port to use of git-chglog
 - **deps:** update dependency jest to v26.4.2 ([#42](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/42))
 - **deps:** pin dependencies ([#41](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/41))
 - **husky:** deprecate pre-push in favor of husky
@@ -212,7 +216,8 @@ v0.3.0
 - README and changed defaults
 
 
-[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.1...HEAD
+[v1.1.1]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.0.3...v1.1.0
 [v1.0.3]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.0.2...v1.0.3
 [v1.0.2]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.0.1...v1.0.2
