@@ -2,6 +2,20 @@
 ## [Unreleased]
 
 
+<a name="v1.1.2"></a>
+## [v1.1.2] - 2020-09-14
+### Bug Fixes
+- **deps:** update dependency [@hapi](https://github.com/hapi)/hoek to v9.1.0 ([#44](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/44))
+
+### Chore
+- **deps:** update dependency eslint to v7.9.0 ([#46](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/46))
+- **deps:** update dependency husky to v4.3.0 ([#45](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/45))
+- **deps:** update dependency eslint to v7.8.1 ([#43](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/43))
+
+### Set
+- theme jekyll-theme-cayman
+
+
 <a name="v1.1.1"></a>
 ## [v1.1.1] - 2020-08-25
 ### Chore
@@ -216,7 +230,8 @@ v0.3.0
 - README and changed defaults
 
 
-[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.2...HEAD
+[v1.1.2]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.1...v1.1.2
 [v1.1.1]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.0.3...v1.1.0
 [v1.0.3]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.0.2...v1.0.3
