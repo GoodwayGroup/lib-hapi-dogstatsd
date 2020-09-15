@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="v1.1.3"></a>
+## [v1.1.3] - 2020-09-14
+### Chore
+- **deps:** remove deprecated auto-changelog dev package
+
+
 <a name="v1.1.2"></a>
 ## [v1.1.2] - 2020-09-14
 ### Bug Fixes
@@ -230,7 +236,8 @@ v0.3.0
 - README and changed defaults
 
 
-[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.3...HEAD
+[v1.1.3]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.1...v1.1.2
 [v1.1.1]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.0.3...v1.1.0
