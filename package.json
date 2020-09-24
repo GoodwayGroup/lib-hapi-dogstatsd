@@ -93,7 +93,7 @@
     ]
   },
   "devDependencies": {
-    "@hapi/hapi": "20.0.0",
+    "@hapi/hapi": "20.0.1",
     "cross-env": "7.0.2",
     "eslint": "7.9.0",
     "eslint-config-goodway": "2.1.1",
