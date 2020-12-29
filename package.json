@@ -94,7 +94,7 @@
   },
   "devDependencies": {
     "@hapi/hapi": "20.0.3",
-    "cross-env": "7.0.2",
+    "cross-env": "7.0.3",
     "eslint": "7.12.1",
     "eslint-config-goodway": "3.0.0",
     "eslint-plugin-import": "2.22.1",
