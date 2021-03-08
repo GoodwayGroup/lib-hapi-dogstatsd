@@ -2,6 +2,18 @@
 ## [Unreleased]
 
 
+<a name="v1.1.6"></a>
+## [v1.1.6] - 2021-03-08
+### Chore
+- **deps:** update dependency eslint to v7.17.0 ([#65](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/65))
+- **deps:** update all non-major dependencies ([#78](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/78))
+- **deps:** update dependency husky to v4.3.8 ([#69](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/69))
+- **deps:** update dependency eslint to v7.18.0 ([#68](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/68))
+- **deps:** update dependency husky to v4.3.7 ([#67](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/67))
+- **deps:** update node.js to v12.20.1 ([#66](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/66))
+- **github action:** add Publish action
+
+
 <a name="v1.1.5"></a>
 ## [v1.1.5] - 2020-12-29
 ### Bug Fixes
@@ -268,7 +280,8 @@ v0.3.0
 - README and changed defaults
 
 
-[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.5...HEAD
+[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.6...HEAD
+[v1.1.6]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.5...v1.1.6
 [v1.1.5]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.4...v1.1.5
 [v1.1.4]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.3...v1.1.4
 [v1.1.3]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.2...v1.1.3
