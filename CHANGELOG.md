@@ -2,6 +2,17 @@
 ## [Unreleased]
 
 
+<a name="v1.2.0"></a>
+## [v1.2.0] - 2021-03-19
+### Chore
+- **deps:** update dependency husky to v5
+- **deps:** update node.js to v14
+- **deps:** update all non-major dependencies ([#79](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/79))
+
+### Features
+- **cd:** add push button release via github actions
+
+
 <a name="v1.1.6"></a>
 ## [v1.1.6] - 2021-03-08
 ### Chore
@@ -280,7 +291,8 @@ v0.3.0
 - README and changed defaults
 
 
-[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.6...HEAD
+[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.2.0...HEAD
+[v1.2.0]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.6...v1.2.0
 [v1.1.6]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.5...v1.1.6
 [v1.1.5]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.4...v1.1.5
 [v1.1.4]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.3...v1.1.4
