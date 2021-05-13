@@ -2,12 +2,28 @@
 ## [Unreleased]
 
 
+<a name="v1.2.1"></a>
+## [v1.2.1] - 2021-05-13
+### Bug Fixes
+- adjust name for goreleaser
+- **deps:** update dependency [@hapi](https://github.com/hapi)/hoek to v9.2.0 ([#84](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/84))
+
+### Chore
+- **deps:** update all non-major dependencies ([#85](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/85))
+- **deps:** update dependency hosted-git-info to 2.8.9 [security] ([#87](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/87))
+- **deps:** update all non-major dependencies ([#83](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/83))
+- **deps:** update dependency husky to v6 ([#82](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/82))
+- **deps:** update all non-major dependencies ([#81](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/81))
+- **deps:** update all non-major dependencies ([#80](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/80))
+
+
 <a name="v1.2.0"></a>
 ## [v1.2.0] - 2021-03-19
 ### Chore
 - **deps:** update dependency husky to v5
 - **deps:** update node.js to v14
 - **deps:** update all non-major dependencies ([#79](https://github.com/GoodwayGroup/lib-hapi-dogstatsd/issues/79))
+- **release:** v1.2.0
 
 ### Features
 - **cd:** add push button release via github actions
@@ -291,7 +307,8 @@ v0.3.0
 - README and changed defaults
 
 
-[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.2.1...HEAD
+[v1.2.1]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.2.0...v1.2.1
 [v1.2.0]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.6...v1.2.0
 [v1.1.6]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.5...v1.1.6
 [v1.1.5]: https://github.com/GoodwayGroup/lib-hapi-dogstatsd/compare/v1.1.4...v1.1.5
